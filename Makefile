@@ -1,8 +1,8 @@
 # 3 node cluster
 all:
 	docker run -d --name node_0 cassandra:3.0
-	docker run -d --name node_1 cassandra:3.0 --link node_0:cassandra
-	docker run -d --name node_2 cassandra:3.0 --link node_0:cassandra
+	docker run -d --name node_1  --link node_0:cassandra cassandra:3.0
+	docker run -d --name node_2  --link node_0:cassandra cassandra:3.0
 stop:
 	docker stop node_0
 	docker stop node_1
