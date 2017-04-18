@@ -15,3 +15,6 @@ clean:
 # this relies on the /etc/hosts file added by docker for linked containers
 shell:
 	docker run --rm -it --link node_0:cassandra cassandra cqlsh cassandra
+
+ring:
+	docker exec node_0 nodetool ring
