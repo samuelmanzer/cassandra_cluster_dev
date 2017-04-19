@@ -3,14 +3,23 @@
 all: cluster
 
 build:
+	docker build -t custom_cassandra cassandra_image 
 	docker build -t cassandra_provision provision
 
 # 3 node cluster
 cluster:
 	# Start nodes and allow them to gossip
-	docker run -d --name node_0 cassandra:3.0
-	docker run -d --name node_1  --link node_0:cassandra cassandra:3.0
-	docker run -d --name node_2  --link node_0:cassandra cassandra:3.0
+	docker run -d --name node_0\
+		--link graphite:graphite\
+		custom_cassandra
+	docker run -d --name node_1\
+		--link graphite:graphite\
+	   	--link node_0:cassandra\
+		custom_cassandra 
+	docker run -d --name node_2\
+		--link graphite:graphite\
+	   	--link node_0:cassandra\
+		custom_cassandra 
 
 provision: build
 	docker run --rm --link node_0:cassandra cassandra_provision
