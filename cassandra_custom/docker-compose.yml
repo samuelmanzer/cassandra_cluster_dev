@@ -10,6 +10,10 @@ services:
       - "8125:8125/udp"
       - "8126:8126"
     restart: always
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
   cassandra-0:
     image: cassandra_custom
     build: .
