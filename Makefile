@@ -34,9 +34,22 @@ clean: stop
 	docker rm node_1
 	docker rm node_2
 
-# this relies on the /etc/hosts file added by docker for linked containers
+# get a cqlsh shell to run commands
 shell:
 	docker run --rm -it --link node_0:cassandra cassandra cqlsh cassandra
 
+# inspect the ring - useful for verifying that gossip is working
 ring:
 	docker exec node_0 nodetool ring
+
+# Graphite server used to report metrics 
+graphite:
+	docker run -d\
+		--name graphite\
+		--restart=always\
+		-p 80:80\
+		-p 2003-2004:2003-2004\
+		-p 2023-2024:2023-2024\
+		-p 8125:8125/udp\
+		-p 8126:8126\
+		hopsoft/graphite-statsd
