@@ -16,8 +16,6 @@ services:
     container_name: cassandra-0
     environment:
       CASSANDRA_BROADCAST_ADDRESS: "cassandra-0"
-    ports:
-    - 7000
     restart: always
     depends_on:
       - graphite
@@ -28,8 +26,6 @@ services:
     environment:
       CASSANDRA_BROADCAST_ADDRESS: "cassandra-1"
       CASSANDRA_SEEDS: "cassandra-0"
-    ports:
-    - 7000
     restart: always
     depends_on:
       - graphite
@@ -41,8 +37,6 @@ services:
     environment:
       CASSANDRA_BROADCAST_ADDRESS: "cassandra-2"
       CASSANDRA_SEEDS: "cassandra-0"
-    ports:
-    - 7000
     restart: always
     depends_on:
       - graphite
