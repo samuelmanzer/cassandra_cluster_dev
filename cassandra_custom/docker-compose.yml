@@ -11,7 +11,7 @@ services:
       - "8126:8126"
     restart: always
   cassandra-0:
-    image: custom_cassandra
+    image: cassandra_custom
     build: .
     container_name: cassandra-0
     environment:
@@ -22,7 +22,7 @@ services:
     depends_on:
       - graphite
   cassandra-1:
-    image: custom_cassandra
+    image: cassandra_custom
     build: .
     container_name: cassandra-1
     environment:
@@ -35,7 +35,7 @@ services:
       - graphite
       - cassandra-0
   cassandra-2:
-    image: custom_cassandra
+    image: cassandra_custom
     build: .
     container_name: cassandra-2
     environment:
