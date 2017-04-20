@@ -4,4 +4,4 @@ WORKDIR /config
 
 ADD . /config
 
-CMD ["cqlsh",  "cassandra", "-f", "/config/startup.cql"]
+CMD ["cqlsh",  "cassandra-0", "-f", "/config/startup.cql"]

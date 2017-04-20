@@ -7,6 +7,7 @@ services:
     environment:
       CASSANDRA_BROADCAST_ADDRESS: "cassandra-0"
     networks:
+      - ring_bridge
       - monitoringstack_backend_bridge
     restart: always
   cassandra-1:
@@ -17,6 +18,7 @@ services:
       CASSANDRA_BROADCAST_ADDRESS: "cassandra-1"
       CASSANDRA_SEEDS: "cassandra-0"
     networks:
+      - ring_bridge
       - monitoringstack_backend_bridge
     restart: always
     depends_on:
@@ -29,11 +31,14 @@ services:
       CASSANDRA_BROADCAST_ADDRESS: "cassandra-2"
       CASSANDRA_SEEDS: "cassandra-0"
     networks:
+      - ring_bridge
       - monitoringstack_backend_bridge
     restart: always
     depends_on:
       - cassandra-1
 
 networks:
+  ring_bridge:
+    driver: bridge
   monitoringstack_backend_bridge:
     external: true
