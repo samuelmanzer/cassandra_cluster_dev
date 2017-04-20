@@ -4,7 +4,7 @@ graphite:
     timeunit: 'SECONDS'
     prefix: 'cassandra'
     hosts:
-     - host: 'graphite'
+     - host: 'monitoring_stack_backend'
        port: 2003
     predicate:
       color: 'white'

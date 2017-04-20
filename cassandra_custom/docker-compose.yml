@@ -1,28 +1,14 @@
 version: '3'
 services:
-  graphite:
-    image: hopsoft/graphite-statsd
-    container_name: graphite
-    ports:
-      - "80:80"
-      - "2003-2004:2003-2004"
-      - "2023-2024:2023-2024"
-      - "8125:8125/udp"
-      - "8126:8126"
-    restart: always
-  grafana:
-    image: grafana/grafana
-    ports:
-      - "3000:3000"
   cassandra-0:
     image: cassandra_custom
     build: .
     container_name: cassandra-0
     environment:
       CASSANDRA_BROADCAST_ADDRESS: "cassandra-0"
+    networks:
+      - monitoringstack_backend_bridge
     restart: always
-    depends_on:
-      - graphite
   cassandra-1:
     image: cassandra_custom
     build: .
@@ -30,9 +16,10 @@ services:
     environment:
       CASSANDRA_BROADCAST_ADDRESS: "cassandra-1"
       CASSANDRA_SEEDS: "cassandra-0"
+    networks:
+      - monitoringstack_backend_bridge
     restart: always
     depends_on:
-      - graphite
       - cassandra-0
   cassandra-2:
     image: cassandra_custom
@@ -41,7 +28,12 @@ services:
     environment:
       CASSANDRA_BROADCAST_ADDRESS: "cassandra-2"
       CASSANDRA_SEEDS: "cassandra-0"
+    networks:
+      - monitoringstack_backend_bridge
     restart: always
     depends_on:
-      - graphite
       - cassandra-1
+
+networks:
+  monitoringstack_backend_bridge:
+    external: true
