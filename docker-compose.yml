@@ -1,8 +1,8 @@
 version: '3'
 services:
   cassandra-0:
-    image: cassandra_custom
-    build: .
+    image: cassandra_dev
+    build: cassandra_dev
     container_name: cassandra-0
     environment:
       CASSANDRA_BROADCAST_ADDRESS: "cassandra-0"
@@ -11,8 +11,8 @@ services:
       - monitoringstack_backend_bridge
     restart: always
   cassandra-1:
-    image: cassandra_custom
-    build: .
+    image: cassandra_dev
+    build: cassandra_dev
     container_name: cassandra-1
     environment:
       CASSANDRA_BROADCAST_ADDRESS: "cassandra-1"
@@ -24,8 +24,8 @@ services:
     depends_on:
       - cassandra-0
   cassandra-2:
-    image: cassandra_custom
-    build: .
+    image: cassandra_dev
+    build: cassandra_dev
     container_name: cassandra-2
     environment:
       CASSANDRA_BROADCAST_ADDRESS: "cassandra-2"
